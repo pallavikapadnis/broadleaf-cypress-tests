@@ -1,16 +1,17 @@
-name: Cypress Tests
+name: Run Cypress Tests
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
-  e2e-tests:
+  cypress-run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,10 +19,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Use the version of Node.js your project uses
+          node-version: '18'  # Match the Node.js version used in your project
 
       - name: Install dependencies
         run: npm install
 
+      - name: Install Cypress
+        run: npx cypress install
+
       - name: Run Cypress tests
-        run: npm test  # Use the npm test script to run Cypress
+        run: npx cypress run
+
+      - name: Upload Cypress videos and screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos-and-screenshots
+          path: |
+            cypress/videos
+            cypress/screenshots
