@@ -136,7 +136,8 @@ describe('Broadleaf Commerce Demo Add to Cart and Checkout', () => {
         cy.get('a.js-submitCheckoutStage').click();
 
         // Select the "Collect On Delivery" option by clicking the <a> tag
-        cy.get('a[data-toggle="pill"][href="#COD"]').click();
+        cy.get('a[data-toggle="pill"][href="#COD"]').should('be.visible').click();
+
         // Click the "Continue" button
         cy.get('a.js-submitPaymentCheckoutStage').click();
 
