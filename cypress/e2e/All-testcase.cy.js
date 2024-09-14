@@ -77,76 +77,26 @@ describe('Broadleaf Commerce Demo User Login', () => {
 
 describe('Broadleaf Commerce Demo Add to Cart and Checkout', () => {
     it('should add the product to the cart and proceed to checkout', () => {
-        // Visit the homepage and search for a product
-        cy.visit('https://demo.broadleafcommerce.org/');
-      
-        cy.get('a[href="/login"]').click(); // Adjust if this link is for showing the login form
+        cy.loginWithFixture(); // Use custom command to log in with fixture data
+        cy.addToCart('hot sauce'); // Use custom command to add product to cart
 
-        // Fill in the login form
-        cy.get('input[name="username"]').type('john.doe@example.com');
-        cy.get('input[id="password"]').first().type('Password123');
-
-        // Submit the login form
-        cy.contains('button', 'Login').click(); // Use the text of the button to ensure the correct button is clicked
-
-        // Verify successful login
-        cy.url().should('not.include', '/login'); // Assuming successful login redirects to a page other than /login
-
-        // Search for a product
-        cy.get('input[name="q"]').type('hot sauce{enter}');
-
-        // Click on the first product's link
-        cy.get('.product-list-item').should('have.length.greaterThan', 0);
-        cy.get('.product-list-item').first().find('a').first().click();
-
-        // Click the 'Add to Cart' button
-        cy.get('button.btn-primary.js-addToCart').first().click();
-
-        // Verify that the product is added to the cart
         cy.get('.js-inCartLinkContainer').should('be.visible');
         cy.get('.js-inCartLinkContainer a').should('contain', 'View in Cart');
-
-        // Click the 'View Your Cart' button
         cy.get('a.btn.btn-primary.goto-full-cart').click();
-
-        // Verify that the cart page is loaded
         cy.url().should('include', '/cart');
+        cy.contains('Summary').should('be.visible');
 
-        // Verify that the cart page contains the added product
-        cy.contains('Summary').should('be.visible'); // Adjust if necessary
-
-        // Click the 'Checkout' button (updated to use the <a> tag)
+        // Shipping address
         cy.get('a[href="/checkout"]').click();
-
-        // Fill in the shipping address with updated selectors
-        cy.get('input[name="address.fullName"]').first().type('John Doe');
-        cy.get('input[name="address.addressLine1"]').first().type('123 Main St');
-        cy.get('input[name="address.city"]').first().type('New York');
-        cy.get('select[name="address.stateProvinceRegion"]').first().select('AL');
-        cy.get('input[name="address.postalCode"]').first().type('10001');
-        cy.get('input[name="address.phonePrimary.phoneNumber"]').first().type('5551234567');
-
-        // Submit the shipping form by clicking the "Continue" button (updated selector)
+        cy.fillShippingAddressWithFixture(); // Use custom command to fill shipping address with fixture data
         cy.get('a.js-submitCheckoutStage').click();
-
-        // Choose the shipping method,Select the "Priority (3 - 5 Days)" shipping option by its value or id
         cy.get('input#fulfillmentOptionId2').check({ force: true });
-
-        // Submit the shipping method form
         cy.get('a.js-submitCheckoutStage').click();
-
-        // Select the "Collect On Delivery" option by clicking the <a> tag
         cy.get('a[data-toggle="pill"][href="#COD"]').should('be.visible').click();
-
-        // Click the "Continue" button
         cy.get('a.js-submitPaymentCheckoutStage').click();
-
-        // Click the "Place Your Order" button
         cy.get('a.js-performCheckout').first().click();
-
-        // Verify the order confirmation
         cy.url().should('include', '/confirmation');
         cy.contains('Thank You!').should('be.visible');
-
     });
-});
+})
+
