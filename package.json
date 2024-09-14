@@ -1,8 +1,8 @@
 {
-  "name": "democapstone22",
+  "name": "broadleaf",
   "version": "1.0.0",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run --spec 'cypress/e2e/**/*'"
   },
   "keywords": [],
   "author": "",
