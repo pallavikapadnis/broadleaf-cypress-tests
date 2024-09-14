@@ -105,8 +105,8 @@ describe('Broadleaf Commerce Demo Add to Cart and Checkout', () => {
         cy.get('a.js-submitPaymentCheckoutStage').should('be.visible').click();
         cy.get('a.js-performCheckout').should('be.visible').first().click();
 
-        // Verify the confirmation page
-        cy.url().should('include', '/confirmation');
+        // Verify the confirmation page.
+        cy.url().should('include', '/confirmation'); 
         cy.contains('Thank You!').should('be.visible');
     });
 });
