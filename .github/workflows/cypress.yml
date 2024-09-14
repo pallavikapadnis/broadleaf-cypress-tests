@@ -14,24 +14,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '18'  # Use the version of Node.js your project uses
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install Cypress binary
+      # Explicitly install Cypress binary
+      - name: Install Cypress
         run: npx cypress install
 
-      - name: Fix Cypress permissions
-        run: chmod +x ./node_modules/.bin/cypress
-
       - name: Run Cypress tests
-        run: npm test  # Run the test script defined in package.json
+        run: npx cypress run --spec 'cypress/e2e/**/*'
 
       - name: Upload Cypress videos and screenshots on failure
         if: failure()
