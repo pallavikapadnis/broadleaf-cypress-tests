@@ -99,7 +99,3 @@ describe('Broadleaf Commerce Demo Add to Cart and Checkout', () => {
         cy.contains('Thank You!').should('be.visible');
     });
 });
-
-
-
-
