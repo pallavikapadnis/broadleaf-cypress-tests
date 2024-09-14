@@ -92,6 +92,7 @@ describe('Broadleaf Commerce Demo Add to Cart and Checkout', () => {
         cy.get('a.js-submitCheckoutStage').click();
         cy.get('input#fulfillmentOptionId2').check({ force: true });
         cy.get('a.js-submitCheckoutStage').click();
+        cy.wait(4000);
         cy.get('a[data-toggle="pill"][href="#COD"]').click();
         cy.get('a.js-submitPaymentCheckoutStage').click();
         cy.get('a.js-performCheckout').first().click();
