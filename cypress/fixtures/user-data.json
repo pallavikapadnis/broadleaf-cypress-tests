@@ -1,0 +1,20 @@
+{
+    "validUser": {
+      "email": "pallavi22@gmail.com",
+      "password": "Pall@55",
+      "firstName": "Pallavi",
+      "lastName": "Kapadnis"
+    },
+    "invalidUser": {
+      "email": "invalid_user@example.com",
+      "password": "wrongPassword"
+    },
+    "address": {
+      "address": "654 Main St",
+      "city": "Las vegas",
+      "state": "AL",
+      "zipcode": "10001",
+      "phone": "5551234567"
+    }
+  }
+  
