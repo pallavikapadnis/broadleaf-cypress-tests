@@ -1,9 +1,8 @@
 {
   "name": "democapstone22",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "cypress run" 
+    "test": "cypress run"
   },
   "keywords": [],
   "author": "",
